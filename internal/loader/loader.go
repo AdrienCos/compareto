@@ -22,7 +22,10 @@ func getFloat(s string) float64 {
 
 // LoadParts reads the CSV file at the given address, and turns it into a slice of Part
 func LoadParts(path string) []types.Part {
-	csvFile, _ := os.Open(path)
+	csvFile, err := os.Open(path)
+	if err != nil {
+		log.Fatal(err)
+	}
 	reader := csv.NewReader(bufio.NewReader(csvFile))
 	reader.Comma = ';'
 	reader.Comment = '#'
@@ -34,7 +37,7 @@ func LoadParts(path string) []types.Part {
 		} else if error != nil {
 			log.Fatal(error)
 		}
-		parts = append(parts, types.Part{
+		newPart := types.Part{
 			Name:         line[0],
 			Speed:        getFloat(line[1]),
 			Acceleration: getFloat(line[2]),
@@ -42,7 +45,9 @@ func LoadParts(path string) []types.Part {
 			Handling:     getFloat(line[4]),
 			Traction:     getFloat(line[5]),
 			MiniTurbo:    getFloat(line[6]),
-		})
+		}
+		newPart.Total = newPart.Speed + newPart.Acceleration + newPart.Weight + newPart.Handling + newPart.Traction + newPart.MiniTurbo
+		parts = append(parts, newPart)
 	}
 	return parts
 

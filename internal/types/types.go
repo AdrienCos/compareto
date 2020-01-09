@@ -13,6 +13,7 @@ type Part struct {
 	Handling     float64 `json:"handling"`
 	Traction     float64 `json:"traction"`
 	MiniTurbo    float64 `json:"mini-turbo"`
+	Total        float64 `json:"total"`
 }
 
 // Build stores a combination of character, vehicle, tire and glider
@@ -27,6 +28,7 @@ type Build struct {
 	Handling     float64 `json:"handling"`
 	Traction     float64 `json:"traction"`
 	MiniTurbo    float64 `json:"mini-turbo"`
+	Total        float64 `json:"total"`
 }
 
 // NewBuild initializes a new Build object based on the given parts
@@ -43,11 +45,12 @@ func NewBuild(char Part, vehicle Part, tires Part, glider Part) Build {
 	build.Handling = char.Handling + vehicle.Handling + tires.Handling + glider.Handling
 	build.Traction = char.Traction + vehicle.Traction + tires.Traction + glider.Traction
 	build.MiniTurbo = char.MiniTurbo + vehicle.MiniTurbo + tires.MiniTurbo + glider.MiniTurbo
+	build.Total = char.Total + vehicle.Total + tires.Total + glider.Total
 	return build
 }
 
 // PrintBuild pretty prints the desired build
 func (b *Build) PrintBuild() {
 	fmt.Printf("Character: %s\nVehicle: %s\nTires: %s\nGlider: %s\n", b.Character.Name, b.Vehicle.Name, b.Tire.Name, b.Glider.Name)
-	fmt.Printf("Speed: %0.2f\tAcceleration: %0.2f\tWeight: %0.2f\nHandling: %0.2f\tTraction: %0.2f\t\tMiniturbo: %0.2f\n\n", b.Speed, b.Acceleration, b.Weight, b.Handling, b.Traction, b.MiniTurbo)
+	fmt.Printf("Speed: %0.2f\tAcceleration: %0.2f\tWeight: %0.2f\nHandling: %0.2f\tTraction: %0.2f\t\tMiniturbo: %0.2f\nTotal: %0.2f\n\n", b.Speed, b.Acceleration, b.Weight, b.Handling, b.Traction, b.MiniTurbo, b.Total)
 }

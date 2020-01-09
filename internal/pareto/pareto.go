@@ -1,6 +1,7 @@
 package pareto
 
 import (
+	"fmt"
 	"sort"
 
 	"github.com/AdrienCos/mk8dx_pareto/internal/types"
@@ -69,4 +70,33 @@ func ExtractFrontier(b []types.Build, c1, c2 Criteria) []types.Build {
 	frontier := orderAndPick(b, c1, c2)
 	frontier = orderAndPick(frontier, c2, c1)
 	return frontier
+}
+
+// InvalidCriteria is an error sent when the user asks for a non-existent criteria
+type InvalidCriteria struct {
+	Flag string
+}
+
+func (e InvalidCriteria) Error() string {
+	return fmt.Sprintf("%s is an invalid criteria.", e.Flag)
+}
+
+// GetCriteriaFromFlag returns the Criteria corresponding to the user-given flag.
+func GetCriteriaFromFlag(s string) (Criteria, error) {
+	switch s {
+	case "speed":
+		return SortSpeed, nil
+	case "acceleration":
+		return SortAcceleration, nil
+	case "weight":
+		return SortWeight, nil
+	case "handling":
+		return SortHandling, nil
+	case "traction":
+		return SortTraction, nil
+	case "miniturbo":
+		return SortMiniTurbo, nil
+	default:
+		return nil, InvalidCriteria{s}
+	}
 }

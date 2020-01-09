@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 
 	"github.com/AdrienCos/mk8dx_pareto/internal/generator"
 	"github.com/AdrienCos/mk8dx_pareto/internal/loader"
@@ -21,7 +22,20 @@ func main() {
 	vehiclesPath := flag.String("v", dataPath+vehiclesFilename, "Path to the vehicles CSV")
 	tiresPath := flag.String("t", dataPath+tiresFilename, "Path to the tires CSV")
 	glidersPath := flag.String("g", dataPath+glidersFilename, "Path to the gliders CSV")
+	criteria1String := flag.String("c1", "speed", "First criteria to use for the Pareto frontier")
+	criteria2String := flag.String("c2", "acceleration", "Second criteria to use for the Pareto frontier")
 	flag.Parse()
+	// Check user input
+	c1, err := pareto.GetCriteriaFromFlag(*criteria1String)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	c2, err := pareto.GetCriteriaFromFlag(*criteria2String)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
 	// Load all data in memory
 	characters := loader.LoadParts(*characterPath)
 	vehicles := loader.LoadParts(*vehiclesPath)
@@ -29,11 +43,8 @@ func main() {
 	gliders := loader.LoadParts(*glidersPath)
 	// Compute all types.Builds
 	builds := generator.GenerateBuilds(characters, vehicles, tires, gliders)
-	// Select the Pareto pair
-	criteria1 := pareto.SortAcceleration
-	criteria2 := pareto.SortSpeed
 	// types.Build the frontier
-	frontier := pareto.ExtractFrontier(builds, criteria1, criteria2)
+	frontier := pareto.ExtractFrontier(builds, c1, c2)
 	// Print the results
 	fmt.Println(len(frontier))
 	for _, b := range frontier {
