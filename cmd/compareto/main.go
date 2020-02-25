@@ -37,8 +37,8 @@ func main() {
 		return
 	}
 	// Load all data in memory
-	characters := loader.LoadParts(*characterPath)
 	vehicles := loader.LoadParts(*vehiclesPath)
+	characters := loader.LoadParts(*characterPath)
 	tires := loader.LoadParts(*tiresPath)
 	gliders := loader.LoadParts(*glidersPath)
 	// Compute all types.Builds

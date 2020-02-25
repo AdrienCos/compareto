@@ -1,10 +1,16 @@
 .PHONY: all run clean
 
-all:
-	go build
+CMD_PATH = ./cmd
+CMD_DIRS=  $(wildcard $(CMD_PATH)/*)
+BIN = $(patsubst $(CMD_PATH)/%, %, $(CMD_DIRS))
+
+all: $(BIN)
+
+$(BIN):	
+	go build $(patsubst %, $(CMD_PATH)/%, $@)
 
 run: 
-	./mk8dx_pareto
+	./compareto
 
 clean:
-	rm mk8dx_pareto
+	rm compareto
