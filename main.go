@@ -10,7 +10,7 @@ import (
 	"github.com/AdrienCos/compareto/internal/pareto"
 )
 
-var dataPath string = "data/"
+var dataPath string = "/data/"
 var charactersFilename string = "characters.csv"
 var vehiclesFilename string = "vehicles.csv"
 var tiresFilename string = "tires.csv"

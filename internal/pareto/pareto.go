@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/AdrienCos/mk8dx_pareto/internal/types"
+	"github.com/AdrienCos/compareto/internal/types"
 )
 
 // Criteria is a 'less'-type function that compares two types.Builds based on a specific stat

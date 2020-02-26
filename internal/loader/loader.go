@@ -5,11 +5,12 @@ import (
 	"encoding/csv"
 	"io"
 	"log"
-	"os"
 	"strconv"
 	"strings"
 
-	"github.com/AdrienCos/mk8dx_pareto/internal/types"
+	"github.com/AdrienCos/compareto/internal/types"
+
+	"github.com/markbates/pkger"
 )
 
 func getFloat(s string) float64 {
@@ -22,7 +23,7 @@ func getFloat(s string) float64 {
 
 // LoadParts reads the CSV file at the given address, and turns it into a slice of Part
 func LoadParts(path string) []types.Part {
-	csvFile, err := os.Open(path)
+	csvFile, err := pkger.Open(path)
 	if err != nil {
 		log.Fatal(err)
 	}

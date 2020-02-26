@@ -1,7 +1,7 @@
 package generator
 
 import (
-	"github.com/AdrienCos/mk8dx_pareto/internal/types"
+	"github.com/AdrienCos/compareto/internal/types"
 )
 
 // GenerateBuilds creates and returns all possible types.Builds based on the given characters, vehicles, tires, and gliders
