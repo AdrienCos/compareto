@@ -11,25 +11,25 @@ Compareto uses the Pareto efficiency to determine all the optimal MK8DX builds b
 
 # Building
 
-Run `go install ./...` from the root of this repo.
+Run `make` from the root of this repo. This will bundle the files in `data/` into a `.go` file using [pkger](https://github.com/markbates/pkger/). The Go code is then compiled into the executable `compareto` at the root of the project.
 
 # Running
 
-Run `compareto --help` for help:
+Run `./compareto --help` for help:
 ```
-Usage of compareto:
+Usage of ./compareto:
   -c string
-    	Path the the characters CSV (default "data/characters.csv")
+    	Path the the characters CSV (default "/data/characters.csv")
   -c1 string
     	First criteria to use for the Pareto frontier (default "speed")
   -c2 string
     	Second criteria to use for the Pareto frontier (default "acceleration")
   -g string
-    	Path to the gliders CSV (default "data/gliders.csv")
+    	Path to the gliders CSV (default "/data/gliders.csv")
   -t string
-    	Path to the tires CSV (default "data/tires.csv")
+    	Path to the tires CSV (default "/data/tires.csv")
   -v string
-    	Path to the vehicles CSV (default "data/vehicles.csv")
+    	Path to the vehicles CSV (default "/data/vehicles.csv")
 ```
 
 ## Basic usage
@@ -90,9 +90,10 @@ Total: 17.50
 
 ## Use a subset of characters or parts
 
-The `data/` folder contains CSV files that list the parts and characters available in the game. Each line in these files correspond to a single part/character. 
 
-In order to limits which parts are used by the optimizer (if you don't have all the parts unlocked yet, or if you want to avoid certain characters for instance), make a copy of the concerned file, and remove the parts/characters you are not interested in. 
+The executable produced by running `make` bundles the parts and characters data.
+
+In order to limits which parts are used by the optimizer (if you don't have all the parts unlocked yet, or if you want to avoid certain characters for instance), make a copy of the files in `data/`, and remove the parts/characters you are not interested in. 
 
 To have `compareto` take these modified files into account, use the following flags to give it the path to the modified file:
 

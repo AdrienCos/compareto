@@ -8,15 +8,22 @@ import (
 	"github.com/AdrienCos/compareto/internal/generator"
 	"github.com/AdrienCos/compareto/internal/loader"
 	"github.com/AdrienCos/compareto/internal/pareto"
+
+	"github.com/markbates/pkger"
 )
 
-var dataPath string = "data/"
+var dataPath string = "/data/"
 var charactersFilename string = "characters.csv"
 var vehiclesFilename string = "vehicles.csv"
 var tiresFilename string = "tires.csv"
 var glidersFilename string = "gliders.csv"
 
 func main() {
+	// Include static files
+	pkger.Include("/data/characters.csv")
+	pkger.Include("/data/vehicles.csv")
+	pkger.Include("/data/tires.csv")
+	pkger.Include("/data/gliders.csv")
 	// Get the correct paths to each CSV file
 	characterPath := flag.String("c", dataPath+charactersFilename, "Path the the characters CSV")
 	vehiclesPath := flag.String("v", dataPath+vehiclesFilename, "Path to the vehicles CSV")
